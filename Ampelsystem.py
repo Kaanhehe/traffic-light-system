@@ -2,8 +2,12 @@ import RPi.GPIO as GPIO
 import time
 import argparse
 import logging
+
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
+
+
 # Pin mappings
 PINS = {
     "ampel1_green": 25,
@@ -13,14 +17,21 @@ PINS = {
     "ampel2_red": 21,
     "button": 10,
 }
+
+
 # Setup GPIO pins
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
+
+
 for pin in PINS.values():
     if pin == PINS["button"]:
         GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     else:
         GPIO.setup(pin, GPIO.OUT)
+
+
+
 def control_traffic_light(yellow_to_green_duration, yellow_to_red_duration, green_duration, puffer):
     """Let the pedestrian cross the street and the cars wait.
     Args:
@@ -29,9 +40,12 @@ def control_traffic_light(yellow_to_green_duration, yellow_to_red_duration, gree
         green_duration (int): Duration of the green light for the pedestrian.
         puffer (int): Duration of the buffer time between traffic light changes.
     """
+    
     # Set initial states
     GPIO.output(PINS["ampel1_green"], GPIO.HIGH)
     GPIO.output(PINS["ampel2_red"], GPIO.HIGH)
+    
+    
     while True:
         try:
             # Check button state
@@ -56,11 +70,15 @@ def control_traffic_light(yellow_to_green_duration, yellow_to_red_duration, gree
                 GPIO.output(PINS["ampel1_red"], GPIO.LOW)
                 GPIO.output(PINS["ampel1_yellow"], GPIO.LOW)
                 GPIO.output(PINS["ampel1_green"], GPIO.HIGH)
+        
         except Exception as e:
             logging.exception(e)
             break
+
     GPIO.cleanup()
     logging.info("Cleaned up GPIO resources.")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Let the pedestrian cross the street and the cars wait.")
     parser.add_argument("yellow_to_green_duration", type=int, help="Duration of the yellow light before the green light turns on.")
