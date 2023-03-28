@@ -87,3 +87,6 @@ if __name__ == "__main__":
     parser.add_argument("puffer", type=int, help="Duration of the buffer time between traffic light changes.")
     args = parser.parse_args()
     control_traffic_light(args.yellow_to_green_duration, args.yellow_to_red_duration, args.green_duration, args.puffer)
+
+
+# python Ampelsystem.py 3 3 10 1
