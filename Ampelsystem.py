@@ -89,4 +89,4 @@ if __name__ == "__main__":
     control_traffic_light(args.yellow_to_green_duration, args.yellow_to_red_duration, args.green_duration, args.puffer)
 
 
-# python Ampelsystem.py 3 3 10 1
+# python Ampelsystem.py 3 3 10 3
