@@ -14,8 +14,8 @@ PINS = {
     "ampel1_yellow": 24,
     "ampel1_red": 23,
     "ampel2_green": 22,
-    "ampel2_red": 21,
-    "button": 10,
+    "ampel2_red": 27,
+    "button": 15,
 }
 
 
